@@ -1,4 +1,5 @@
 const Joi = require('joi');
+
 const contactCreateSchema = Joi.object({
   name: Joi.string()
     .min(1)
