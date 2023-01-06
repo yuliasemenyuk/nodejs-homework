@@ -1,9 +1,11 @@
 const {
     registerUser,
-    login
+    login,
+    getCurrentUser
 } = require('./auth');
 
 module.exports = {
     registerUser,
-    login
+    login,
+    getCurrentUser,
 }

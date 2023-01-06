@@ -5,7 +5,6 @@ const { HttpError } = require('../../helpers');
 const { ctrlWrapper } = require('../../helpers');
 const {userRegisterSchema, userLoginSchema } = require('../../schemas/users');
 
-// const SECRET_KEY = process.env.SECRET_KEY;
 
 const registerUser = async (req, res) => {
     const {email, password} = req.body;
@@ -52,7 +51,7 @@ const login = async (req, res) => {
    }
 
    const token = jwt.sign(payload, process.env.SECRET_KEY, {expiresIn: "1w"});
-   
+
    res.json({
     token: token,
     user: {
@@ -62,7 +61,13 @@ const login = async (req, res) => {
    })
 }
 
+const getCurrentUser = async (req, res) => {
+    const {email, subscription} = req.user;
+    res.json({email, subscription});
+}
+
 module.exports = {
     registerUser: ctrlWrapper(registerUser),
     login: ctrlWrapper(login),
+    getCurrentUser: ctrlWrapper(getCurrentUser),
 };
