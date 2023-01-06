@@ -9,7 +9,7 @@ const userRegisterSchema = Joi.object({
         .required(),
     subscription: Joi.string()
         .valid("starter", "pro", "business")
-        .required()
+        // .required()
     // token: Joi.string()
     //     .required()
 });

@@ -4,7 +4,10 @@ const { ctrlWrapper } = require('../../helpers');
 const {contactUpdateSchema, contactCreateSchema} = require('../../schemas/contact');
 
 const listContacts = async (req, res) => {
-  const contacts = await Contact.find({});
+  const {_id: owner} = req.user;  
+  const {page = 1, limit = 20} = req.query;
+  const skip =(page - 1) * limit;
+  const contacts = await Contact.find({owner}, null, {skip, limit});
   res.json(contacts);
 }
 
@@ -32,7 +35,8 @@ const addContact = async (req, res) => {
       return res.status(400).json({status: validationResult.error})
     }
 
-  const newContact = await Contact.create(req.body);
+  const {_id: owner} = req.user;  
+  const newContact = await Contact.create({...req.body, owner});
   res.status(201).json(newContact);
 }
 
