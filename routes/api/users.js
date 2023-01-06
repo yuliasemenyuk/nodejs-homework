@@ -1,5 +1,6 @@
 const express = require('express');
 const ctrl = require('../../controllers/auth');
+// const authMiddleware = require('../../middlewares/authMiddleware')
 
 // const {validateBody} = require('../../middlewares')
 

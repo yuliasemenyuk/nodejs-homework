@@ -1,8 +1,11 @@
 const express = require('express');
 const ctrl = require('../../controllers/contacts');
+const {authMiddleware} = require('../../middlewares')
 
 
 const router = express.Router();
+
+router.use(authMiddleware);
 
 router.get('/', ctrl.listContacts);
 
