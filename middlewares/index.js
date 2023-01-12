@@ -1,3 +1,7 @@
 const authMiddleware = require('./authMiddleware');
+const upload = require('./multerMiddleware');
 
-module.exports = {authMiddleware,};
+module.exports = {
+    authMiddleware,
+    upload
+};

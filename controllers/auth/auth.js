@@ -72,9 +72,15 @@ const getCurrentUser = async (req, res) => {
     res.json({email, subscription});
 }
 
+const updateAvatar = async (req, res) => {
+    console.log('boooooooo');
+    res.json("succes");
+}
+
 module.exports = {
     registerUser: ctrlWrapper(registerUser),
     login: ctrlWrapper(login),
     logout: ctrlWrapper(logout),
     getCurrentUser: ctrlWrapper(getCurrentUser),
+    updateAvatar: ctrlWrapper(updateAvatar),
 };

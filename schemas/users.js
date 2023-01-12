@@ -8,10 +8,10 @@ const userRegisterSchema = Joi.object({
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
         .required(),
     subscription: Joi.string()
-        .valid("starter", "pro", "business")
-        // .required()
+        .valid("starter", "pro", "business"),
     // token: Joi.string()
-    //     .required()
+    //     .required(),
+    avatarURL: Joi.string()
 });
 
 const userLoginSchema = Joi.object({
