@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs/promises');
 const path = require('path');
 const gravatar = require('gravatar');
+var Jimp = require('jimp');
 const {User} = require('../../models/userModel');
 const { HttpError } = require('../../helpers');
 const { ctrlWrapper } = require('../../helpers');
@@ -80,6 +81,7 @@ const getCurrentUser = async (req, res) => {
 const updateAvatar = async (req, res) => {
     const {_id} = req.user;
     const {path: prevPath, filename} = req.file;
+    (await Jimp.read(prevPath)).resize(250, 250);
  
     const avatarsDir = path.join(__dirname, '../../', 'public', 'avatars');
     
@@ -89,7 +91,11 @@ const updateAvatar = async (req, res) => {
     const avatarURL = path.join('avatars', filename);
     await User.findByIdAndUpdate(_id, {avatarURL});
 
-    res.json({avatarURL});
+    if (!avatarURL) {
+        throw HttpError(401, "Not authorized")
+    };
+
+    res.status(200).json({avatarURL});
 }
 
 module.exports = {
