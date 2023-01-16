@@ -3,10 +3,9 @@ const jwt = require('jsonwebtoken');
 const fs = require('fs/promises');
 const path = require('path');
 const gravatar = require('gravatar');
-var Jimp = require('jimp');
+const Jimp = require('jimp');
 const {User} = require('../../models/userModel');
-const { HttpError } = require('../../helpers');
-const { ctrlWrapper } = require('../../helpers');
+const { HttpError, ctrlWrapper } = require('../../helpers');
 const {userRegisterSchema, userLoginSchema } = require('../../schemas/users');
 
 
