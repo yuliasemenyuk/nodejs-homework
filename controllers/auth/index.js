@@ -2,7 +2,8 @@ const {
     registerUser,
     login,
     logout,
-    getCurrentUser
+    getCurrentUser,
+    updateAvatar
 } = require('./auth');
 
 module.exports = {
@@ -10,4 +11,5 @@ module.exports = {
     login,
     logout,
     getCurrentUser,
+    updateAvatar,
 }
