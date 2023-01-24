@@ -8,7 +8,6 @@ const Jimp = require('jimp');
 const {User} = require('../../models/userModel');
 const { HttpError, ctrlWrapper, sendEmail } = require('../../helpers');
 const {userRegisterSchema, userLoginSchema } = require('../../schemas/users');
-// require("dotenv").config();
 
 const {BASE_URL, SECRET_KEY} = process.env;
 
@@ -32,7 +31,6 @@ const registerUser = async (req, res) => {
     const verificationToken = uuidv4();
     
     const newUser = await User.create({...req.body, password: hashPassword, avatarURL, verificationToken});
-    
     
     const verificationLetter = {
         to: email,
@@ -142,10 +140,8 @@ const resendVerify = async (req, res) => {
         }
     
         sendEmail(verificationLetter);
-
-        await User.findByIdAndUpdate(user._id,  {verify: true, verificationToken: ""});
     
-        res.status(200).json({message: 'Verification successful'})
+        res.status(200).json({message: 'Verification email sent'})
 
     } else {
         res.status(400).json({message: '"Verification has already been passed"'})
