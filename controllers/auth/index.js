@@ -3,7 +3,9 @@ const {
     login,
     logout,
     getCurrentUser,
-    updateAvatar
+    updateAvatar,
+    verifyUser,
+    resendVerify
 } = require('./auth');
 
 module.exports = {
@@ -12,4 +14,6 @@ module.exports = {
     logout,
     getCurrentUser,
     updateAvatar,
+    verifyUser,
+    resendVerify
 }

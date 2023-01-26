@@ -1,8 +1,51 @@
-// const {login} = require('../controllers/auth');
-// const jwt = require('jsonwebtoken');
-// require("dotenv").config();
+const request = require('supertest');
+const mongoose = require('mongoose');
+const {login} = require('../controllers/auth');
+require("dotenv").config();
 // const { HttpError, ctrlWrapper } = require('../helpers');
 
+const app = require('../app');
+const {User} = require('../models/userModel');
+
+const {DB_TEST_HOST} = process.env;
+
+describe('Login controller test', () => {
+    let server;
+    beforeAll(() => server = app.listen(8081));
+    afterAll(() => server.close());
+
+    beforeEach((done) => {
+        mongoose.connect(DB_TEST_HOST).then(() => done());
+    })
+
+    afterEach((done) => {
+        mongoose.connection.db.dropCollection(() => {
+            mongoose.connection.close(() => done())
+        })
+    })
+
+    test('Response statusCode, token, user', async () => {
+        const newUser = {
+            email: 'boookikikiku@mail.com',
+            password: '1234567'
+        }
+        
+        const user = await User.create(newUser);
+
+        const loginUser = {
+            email: 'boookikikiku@mail.com',
+            password: '1234567'
+        };
+
+        const response = await request(app).post('/api/contacts/login').send(loginUser)
+        console.log(loginUser);
+        expect(response.statusCode).toBe(200);
+        const {body} = response;
+        expect(body.token).toBeTruthy();
+        const {token} = await User.findById(user._id);
+        expext(body.token).toBe(token);
+    })
+})
 
 // describe('Login controller test', () => {
 //     it('Is login res status code 200', async () => {

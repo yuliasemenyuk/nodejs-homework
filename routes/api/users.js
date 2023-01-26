@@ -15,5 +15,9 @@ router.get('/current', authMiddleware, ctrl.getCurrentUser);
 
 router.patch('/avatars', authMiddleware, upload.single('avatar'), ctrl.updateAvatar);
 
+router.get('/verify/:verificationToken', ctrl.verifyUser);
+
+router.get('/verify', ctrl.resendVerify);
+
 
 module.exports = router;
