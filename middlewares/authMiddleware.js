@@ -15,7 +15,6 @@ const authMiddleware = async (req, res, next) => {
         const user = await User.findById(id);
         if (!user || !user.token || token !== String(user.token)) {
             next(HttpError(401, "Not authorized"))
-            console.log('boo');
         }
         req.user = user;
         next();
